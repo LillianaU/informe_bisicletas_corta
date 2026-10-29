@@ -819,6 +819,14 @@ Cada archivo lleva comentarios de bloque en español. Ruta de lectura sugerida:
 
 ---
 
+## Documentación
+
+Toda la documentación del proyecto (Scrum, modelo C4, modelo relacional,
+casos de uso y diagramas POO) se encuentra en la carpeta
+[`documentacion/`](documentacion/README.md).
+
+---
+
 ## Créditos
 
 Proyecto didáctico de curso — construido paso a paso con PHP, MySQL, Bootstrap,
