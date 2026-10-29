@@ -340,6 +340,53 @@ más fácil de explicar y de mantener en un curso.
 **Por qué librerías locales y no CDN**: la clase puede dictarse sin Internet y el
 proyecto funciona offline; además evita sorpresas por cambios de versión en CDN.
 
+### 7.1 Instalación paso a paso de cada librería (modo local/offline)
+
+Todas las librerías se guardan en `public/assets/` para que el proyecto funcione
+sin conexión. Para reproducir esta instalación desde cero:
+
+**A. Bootstrap 5.3 (CSS + JS bundle)**
+1. Descargar desde https://getbootstrap.com/docs/5.3/getting-started/download/
+   (o desde el CDN: `bootstrap.min.css` y `bootstrap.bundle.min.js`).
+2. Copiar a:
+   - `public/assets/css/bootstrap.min.css`
+   - `public/assets/js/bootstrap.bundle.min.js`
+3. En `src/Views/dashboard.php` enlazar con `<link rel="stylesheet" href="assets/css/bootstrap.min.css">`
+   y `<script src="assets/js/bootstrap.bundle.min.js"></script>`.
+
+**B. Chart.js 4**
+1. Descargar `chart.umd.min.js` desde https://www.chartjs.org/docs/latest/getting-started/installation.html
+   (o el CDN `https://cdn.jsdelivr.net/npm/chart.js`).
+2. Copiar a `public/assets/js/chart.umd.min.js`.
+3. En la vista: `<script src="assets/js/chart.umd.min.js"></script>`.
+
+**C. SweetAlert2**
+1. Descargar `sweetalert2.min.js` desde https://sweetalert2.github.io/#download
+   (o el CDN `https://cdn.jsdelivr.net/npm/sweetalert2`).
+2. Copiar a `public/assets/js/sweetalert2.min.js`.
+3. En la vista: `<script src="assets/js/sweetalert2.min.js"></script>`.
+
+**D. FPDF (implementación propia)**
+1. Este proyecto **no usa Composer**: la clase FPDF está incluida como un solo
+   archivo en `vendor/fpdf/fpdf.php` (versión documentada).
+2. Si partes de cero, descarga FPDF desde http://www.fpdf.org/ y coloca
+   `fpdf.php` en `vendor/fpdf/fpdf.php`.
+3. En `autoload.php` no se registra (no tiene namespace `App\`); se incluye
+   manualmente donde se use (`require_once __DIR__ . '/../vendor/fpdf/fpdf.php'`).
+
+**E. Extensión GD de PHP (para aplanar PNG→JPEG en el PDF)**
+1. En Laragon/XAMPP viene activada. Verificar con:
+   ```
+   php -m | findstr gd
+   ```
+2. Si no aparece, editar `php.ini` y descomentar `extension=gd` (o `gd2`),
+   reiniciar Apache y volver a verificar.
+
+**F. MySQL/MariaDB**
+1. Crear la base `ebike_management`.
+2. Importar `ebike_management.sql` (tablas + datos).
+3. Importar `sql/stored_procedures.sql` (los 5 SPs del dashboard).
+
 ---
 
 ## 8. Tutorial paso a paso
