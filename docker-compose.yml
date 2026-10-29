@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: ebike_web
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_NAME: ebike_management
+      DB_USER: root
+      DB_PASS: root
+      DB_CHARSET: utf8mb4
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./:/var/www/html
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: ebike_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ebike_management
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./ebike_management.sql:/docker-entrypoint-initdb.d/01-ebike_management.sql
+      - ./sql/stored_procedures.sql:/docker-entrypoint-initdb.d/02-stored_procedures.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  db_data:

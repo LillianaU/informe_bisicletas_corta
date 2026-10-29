@@ -2,17 +2,13 @@
 // ============================================================
 // CONFIGURACION DE LA BASE DE DATOS
 // ============================================================
+// Lee variables de entorno (útil para Docker) con valores por defecto
+// para desarrollo local (Laragon/XAMPP).
 
-// Devuelve un array asociativo con los parámetros de conexión a MySQL
 return [
-    // Host del servidor de base de datos (localhost en entorno de desarrollo)
-    'host' => 'localhost',
-    // Usuario de la base de datos
-    'user' => 'root',
-    // Contraseña del usuario (vacía en entorno local)
-    'pass' => '',
-    // Nombre de la base de datos a utilizar
-    'dbname' => 'ebike_management',
-    // Conjunto de caracteres para la conexión (utf8mb4 soporta emojis y caracteres especiales)
-    'charset' => 'utf8mb4',
+    'host'    => getenv('DB_HOST')    ?: 'localhost',
+    'user'    => getenv('DB_USER')    ?: 'root',
+    'pass'    => getenv('DB_PASS')    ?: '',
+    'dbname'  => getenv('DB_NAME')    ?: 'ebike_management',
+    'charset' => getenv('DB_CHARSET') ?: 'utf8mb4',
 ];
