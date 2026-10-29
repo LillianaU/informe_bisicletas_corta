@@ -1,0 +1,35 @@
+# ============================================================
+# .gitignore - Ebike Dashboard
+# ============================================================
+
+# Configuración sensible
+config/database.php
+.env
+.env.local
+
+# Dependencias de Composer
+vendor/
+composer.lock
+
+# Archivos de caché
+*.cache
+*.tmp
+*.log
+
+# Backups
+*.bak
+*.old
+*~
+
+# Archivos del navegador
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# PHP
+php_errors.log
+*.php~
